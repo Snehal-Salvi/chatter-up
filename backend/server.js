@@ -1,46 +1,64 @@
-// server.js
-
-import express from 'express';
-import http from 'http';
+import { createServer } from 'http';
 import { Server } from 'socket.io';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import cors from 'cors';
+import app from './index.js'; // Import the express app
+import { getLastMessagesFromRoom, sortRoomMessagesByDate } from './controllers/message.controller.js';
+import Message from './models/mesaage.model.js';
+import User from './models/user.model.js';
 
-// Load environment variables
-dotenv.config();
-
-// Initialize Express app
-const app = express();
-const server = http.createServer(app);
+const server = createServer(app);
 const io = new Server(server, {
     cors: {
         origin: 'http://localhost:3000',
         methods: ['GET', 'POST']
     }
 });
+ 
 
-// Middleware
-app.use(express.json());
-app.use(cors());
+const rooms = ['general', 'tech', 'finance', 'crypto'];
 
-// Socket.IO connection handling
+// Socket connection
 io.on('connection', (socket) => {
-    console.log('A user connected');
-    
-    // Handle events (e.g., chat messages)
-    socket.on('chat message', (msg) => {
-        console.log('Message from client: ' + msg);
-        io.emit('chat message', msg); // Broadcast to all connected clients
+    socket.on('new-user', async () => {
+        const members = await User.find();
+        io.emit('new-user', members);
     });
 
-    socket.on('disconnect', () => {
-        console.log('User disconnected');
+    socket.on('join-room', async (newRoom, previousRoom) => {
+        socket.join(newRoom);
+        socket.leave(previousRoom);
+        let roomMessages = await getLastMessagesFromRoom(newRoom);
+        roomMessages = sortRoomMessagesByDate(roomMessages);
+        socket.emit('room-messages', roomMessages);
+    });
+
+    socket.on('message-room', async (room, content, sender, time, date) => {
+        const newMessage = await Message.create({ content, from: sender, time, date, to: room });
+        let roomMessages = await getLastMessagesFromRoom(room);
+        roomMessages = sortRoomMessagesByDate(roomMessages);
+        // sending message to room
+        io.to(room).emit('room-messages', roomMessages);
+        socket.broadcast.emit('notifications', room);
+    });
+
+    socket.on('logout', async (req, res) => {
+        try {
+            const { _id, newMessages } = req.body;
+            const user = await User.findById(_id);
+            user.status = "offline";
+            user.newMessages = newMessages;
+            await user.save();
+            const members = await User.find();
+            socket.broadcast.emit('new-user', members);
+            res.status(200).send();
+        } catch (e) {
+            console.log(e);
+            res.status(400).send();
+        }
     });
 });
 
-// Start server
-const PORT = process.env.PORT || 5000;
+// Start the server
+const PORT = process.env.PORT || 3002;
 server.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
