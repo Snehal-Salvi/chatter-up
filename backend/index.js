@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './config/db.js';
 import userRoutes from './routes/user.routes.js';
+import roomsRouter from "./routes/rooms.routes.js";
 
 const app = express();
 
@@ -12,14 +13,12 @@ app.use(cors());
 
 // Routes
 app.use('/api/user', userRoutes); 
+// Use the rooms route
+app.use("/rooms", roomsRouter);
 
 // Connect to the database
 connectDB();
 
-// Define a route for fetching rooms (optional)
-app.get('/rooms', (req, res) => {
-    const rooms = ['general', 'tech', 'finance', 'crypto'];
-    res.json(rooms);
-});
+ 
 
 export default app;

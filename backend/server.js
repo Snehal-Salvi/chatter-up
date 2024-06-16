@@ -16,8 +16,6 @@ const io = new Server(server, {
   },
 });
 
-const rooms = ["Room 1", "Room 2", "Room 3", "Room 4"];
-
 // Socket connection
 io.on("connection", (socket) => {
   socket.on("new-user", async () => {
@@ -66,7 +64,7 @@ io.on("connection", (socket) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 5001;
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

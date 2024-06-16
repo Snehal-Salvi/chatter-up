@@ -86,7 +86,7 @@
   .loginButton,
   .signUpButton {
     width: 100px;
-    height: 30px;
+    height: fit-content;
     background-color: rgb(255, 255, 255);
     color: #0d2339;
     font-weight: 800;
