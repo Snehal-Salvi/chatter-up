@@ -1,0 +1,57 @@
+.container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+     
+  }
+  
+  .textContent {
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-align: center;
+    box-shadow: rgba(46, 69, 240, 0.4) 5px 5px, rgba(28, 40, 169, 0.3) 10px 10px, rgba(46, 46, 240, 0.2) 15px 15px, rgba(98, 46, 240, 0.1) 20px 20px, rgba(5, 7, 80, 0.05) 25px 25px;
+    padding: 20px;
+    background: url('../../assets/backgroundImage.jpg')  ;
+    background-size: contain;
+    border-radius: 10px;
+  }
+  
+ 
+  
+  .heading {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .subtext {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .startButton {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #131594;
+    border: 2px solid beige;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .startButton:hover {
+    scale: 1.2;
+  }
+  
+  .messageIcon {
+    margin-left: 10px;
+  }
+  
