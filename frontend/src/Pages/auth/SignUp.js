@@ -54,7 +54,7 @@ export default function SignUp() {
           <label htmlFor="name">Name</label>
           <input
             type="text"
-            placeholder="name"
+            placeholder="Name"
             id="name"
             onChange={handleChange}
           />
@@ -74,7 +74,7 @@ export default function SignUp() {
           <label htmlFor="password">Password</label>
           <input
             type="password"
-            placeholder="password"
+            placeholder="********"
             id="password"
             onChange={handleChange}
           />

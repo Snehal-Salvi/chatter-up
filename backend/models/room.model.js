@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// Define the schema for a room, including its name and messages array
 const roomSchema = new mongoose.Schema({
   name: String,
   messages: [

@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 
+// Define the schema for a user, including its name and email and password  
 const userSchema = new Schema(
   {
     name: {
