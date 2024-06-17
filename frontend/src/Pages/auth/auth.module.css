@@ -78,4 +78,10 @@
   div a:hover {
     text-decoration: underline;
   }
+
+  .errorAlert{
+    color: #D8000C;
+    background-color: #FFBABA;
+    padding: 8px;   
+  }
   

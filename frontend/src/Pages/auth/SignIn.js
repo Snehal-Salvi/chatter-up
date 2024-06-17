@@ -74,7 +74,7 @@ export default function SignIn({ handleLogin }) {
       <form onSubmit={handleSubmit}>
         {/* Display error message if login fails */}
         {errorMessage && (
-          <div className="alert alert-danger">{errorMessage}</div>
+          <div className={styles.errorAlert}>{errorMessage}</div>
         )}
 
         {/* Input fields for email and password */}

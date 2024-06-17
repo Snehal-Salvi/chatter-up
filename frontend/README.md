@@ -2,6 +2,32 @@
 
 Chatter Up is a real-time chat application that allows users to join rooms and communicate with others globally.
 
+## Snapshots
+
+- **Home Page**
+
+![Home Page](../frontend/src/assets/HomePage.png)
+
+- **Rooms Page**
+
+![Rooms Page](../frontend/src/assets/Rooms.png)
+
+- **Chats Page**
+
+![Chats Page](../frontend/src/assets/Chats.png)
+
+- **Typing Indicator**
+
+![Typing Indicator](../frontend/src/assets/TypingIndicator.png)
+
+- **Signup Page**
+
+![Signup Page](../frontend/src/assets/Signup.png)
+
+- **Signin Page**
+
+![Signin Page](../frontend/src/assets/Signin.png)
+
 ## Features
 
 - User authentication (sign up, sign in, logout)

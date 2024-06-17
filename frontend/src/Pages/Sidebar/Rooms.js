@@ -3,6 +3,7 @@ import styles from "./Rooms.module.css";
 import { BACKEND_URL } from "../../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus, faComment } from "@fortawesome/free-solid-svg-icons";
+import Loader from "../../components/Loader/Loader";
 
 function Rooms({ onSelectRoom }) {
   // State management
@@ -99,7 +100,7 @@ function Rooms({ onSelectRoom }) {
 
   // Display loading spinner while loading
   if (loading) {
-    return <div className={styles.loader}>Loading...</div>;
+    return <div className={styles.loader}><Loader/></div>;
   }
 
   // Display error message if there's an error

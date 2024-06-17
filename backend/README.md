@@ -2,6 +2,28 @@
 
 This is a backend application for a real-time chat system built with Express.js, Socket.io, and MongoDB.
 
+## Snapshots
+
+- **Signup Route**
+
+![Signup Route](../backend/assets/Signup.png)
+
+- **Signin Route**
+
+![Signin Route](../backend/assets/Signin.png)
+
+- **Get Rooms**
+
+![Get Rooms](../backend/assets/Getrooms.png)
+
+- **Add Room**
+
+![Add Room](../backend/assets/Addroom.png)
+
+- **Delete Room**
+
+![Delete Room](../backend/assets/Deleteroom.png)
+
 ## Installation
 
 To run this project locally, follow these steps:
