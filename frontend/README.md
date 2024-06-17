@@ -14,7 +14,7 @@ Chatter Up is a real-time chat application that allows users to join rooms and c
 
 - **Chats Page**
 
-![Chats Page](../frontend/src/assets/Chats.png)
+![Chats Page](../frontend/src/assets/chats.png)
 
 - **Typing Indicator**
 

@@ -18,11 +18,11 @@ This is a backend application for a real-time chat system built with Express.js,
 
 - **Add Room**
 
-![Add Room](../backend/assets/Addroom.png)
+![Add Room](../backend/assets/AddRoom.png)
 
 - **Delete Room**
 
-![Delete Room](../backend/assets/Deleteroom.png)
+![Delete Room](../backend/assets/DeleteRoom.png)
 
 ## Installation
 
