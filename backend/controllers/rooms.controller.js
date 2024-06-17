@@ -1,14 +1,9 @@
-// controllers/room.controller.js
-
 import Room from "../models/room.model.js";
 
- 
-
-// Controller to create a new room
 export const createRoom = async (req, res) => {
   try {
-    const { roomName } = req.body;
-    const newRoom = new Room({ name: roomName });
+    const { name } = req.body;
+    const newRoom = new Room({ name });
     await newRoom.save();
     res.status(201).json(newRoom);
   } catch (error) {
@@ -16,7 +11,6 @@ export const createRoom = async (req, res) => {
   }
 };
 
-// Controller to get all rooms
 export const getRooms = async (req, res) => {
   try {
     const rooms = await Room.find();
@@ -26,11 +20,10 @@ export const getRooms = async (req, res) => {
   }
 };
 
-// Controller to delete a room
 export const deleteRoom = async (req, res) => {
   try {
-    const { roomName } = req.params;
-    await Room.findOneAndDelete({ name: roomName });
+    const { id } = req.params;
+    await Room.findByIdAndDelete(id);
     res.status(200).json({ message: "Room deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: "Failed to delete room" });

@@ -1,15 +1,13 @@
 import React from "react";
 
-// Spinner component to display loading on page.
- 
 export default function Loader() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" height="50">
       <circle
         fill="#FF156D"
         stroke="#FF156D"
-        strokeWidth="10"  
-        r="10" 
+        strokeWidth="10"
+        r="10"
         cx="40"
         cy="100"
       >
@@ -26,8 +24,8 @@ export default function Loader() {
       <circle
         fill="#FF156D"
         stroke="#FF156D"
-        strokeWidth="10" 
-        r="10"  
+        strokeWidth="10"
+        r="10"
         cx="100"
         cy="100"
       >
@@ -44,8 +42,8 @@ export default function Loader() {
       <circle
         fill="#FF156D"
         stroke="#FF156D"
-        strokeWidth="10"  
-        r="10"  
+        strokeWidth="10"
+        r="10"
         cx="160"
         cy="100"
       >

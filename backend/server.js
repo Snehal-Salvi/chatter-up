@@ -1,70 +1,79 @@
-import { createServer } from "http";
+import express from "express";
+import http from "http";
 import { Server } from "socket.io";
-import app from "./index.js"; // Import the express app
-import {
-  getLastMessagesFromRoom,
-  sortRoomMessagesByDate,
-} from "./controllers/message.controller.js";
-import Message from "./models/mesaage.model.js";
-import User from "./models/user.model.js";
+import cors from "cors";
 
-const server = createServer(app);
+import Room from "./models/room.model.js";
+import connectDB from "./config/db.js";
+import userRoutes from "./routes/user.routes.js";
+import roomsRouter from "./routes/rooms.routes.js";
+
+const app = express();
+const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: "http://localhost:3000",
     methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 
-// Socket connection
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+connectDB();
+
+app.get("/", (req, res) => {
+  res.send("App is working");
+});
+
+app.use("/api/user", userRoutes);
+
+app.use("/api/rooms", roomsRouter);
+
 io.on("connection", (socket) => {
-  socket.on("new-user", async () => {
-    const members = await User.find();
-    io.emit("new-user", members);
-  });
+  console.log("A user connected");
 
-  socket.on("join-room", async (newRoom, previousRoom) => {
-    socket.join(newRoom);
-    socket.leave(previousRoom);
-    let roomMessages = await getLastMessagesFromRoom(newRoom);
-    roomMessages = sortRoomMessagesByDate(roomMessages);
-    socket.emit("room-messages", roomMessages);
-  });
-
-  socket.on("message-room", async (room, content, sender, time, date) => {
-    const newMessage = await Message.create({
-      content,
-      from: sender,
-      time,
-      date,
-      to: room,
-    });
-    let roomMessages = await getLastMessagesFromRoom(room);
-    roomMessages = sortRoomMessagesByDate(roomMessages);
-    // sending message to room
-    io.to(room).emit("room-messages", roomMessages);
-    socket.broadcast.emit("notifications", room);
-  });
-
-  socket.on("logout", async (req, res) => {
-    try {
-      const { _id, newMessages } = req.body;
-      const user = await User.findById(_id);
-      user.status = "offline";
-      user.newMessages = newMessages;
-      await user.save();
-      const members = await User.find();
-      socket.broadcast.emit("new-user", members);
-      res.status(200).send();
-    } catch (e) {
-      console.log(e);
-      res.status(400).send();
+  socket.on("join", async (roomId) => {
+    socket.join(roomId);
+    const room = await Room.findById(roomId);
+    if (room) {
+      socket.emit("roomData", room);
     }
+  });
+
+  socket.on("sendMessage", async (roomId, message, sender) => {
+    const newMessage = {
+      sender,
+      text: message,
+      createdAt: new Date(),
+      read: false,
+    };
+    const room = await Room.findByIdAndUpdate(
+      roomId,
+      {
+        $push: { messages: newMessage },
+      },
+      { new: true }
+    );
+    io.to(roomId).emit("message", newMessage);
+  });
+
+  socket.on("typing", (roomId, userName) => {
+    socket.to(roomId).emit("typing", userName);
+  });
+
+  socket.on("stopTyping", (roomId) => {
+    socket.to(roomId).emit("stopTyping");
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
   });
 });
 
-// Start the server
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 3002;
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

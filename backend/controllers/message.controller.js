@@ -1,11 +1,16 @@
-import Message from "../models/mesaage.model.js";
+import Message from "../models/message.model.js";
 
 export const getLastMessagesFromRoom = async (room) => {
-  const roomMessages = await Message.aggregate([
-    { $match: { to: room } },
-    { $group: { _id: "$date", messagesByDate: { $push: "$$ROOT" } } },
-  ]);
-  return roomMessages;
+  try {
+    const roomMessages = await Message.aggregate([
+      { $match: { to: room } },
+      { $group: { _id: "$date", messagesByDate: { $push: "$$ROOT" } } },
+    ]);
+    return roomMessages;
+  } catch (error) {
+    console.error("Error fetching messages:", error);
+    throw error;
+  }
 };
 
 export const sortRoomMessagesByDate = (messages) => {

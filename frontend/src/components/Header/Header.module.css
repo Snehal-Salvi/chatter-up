@@ -86,7 +86,7 @@
   .loginButton,
   .signUpButton {
     width: 100px;
-    height: 30px;
+    height: 50px;
     background-color: rgb(255, 255, 255);
     color: #0d2339;
     font-weight: 800;
@@ -102,6 +102,19 @@
   .signUpButton:hover {
    background-color: rgb(183, 222, 248);
    color: blue;
+  }
+
+  .welcomeUser{
+    font-size: 1.5rem;
+    font-style: italic;
+    color: #130733;
+    text-align: center;
+  color: white;
+    background-color: rgba(159, 206, 255, 0.5);  
+    padding: 5px;
+    border-radius: 9px;
+  
+    
   }
   
  

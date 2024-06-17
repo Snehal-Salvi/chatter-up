@@ -1,8 +1,14 @@
-// models/room.model.js
 import mongoose from "mongoose";
 
 const roomSchema = new mongoose.Schema({
-  name: { type: String, unique: true, required: true }
+  name: String,
+  messages: [
+    {
+      sender: String,
+      text: String,
+      createdAt: { type: Date, default: Date.now },
+    },
+  ],
 });
 
 const Room = mongoose.model("Room", roomSchema);
