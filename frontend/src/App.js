@@ -9,10 +9,12 @@ import Chat from "./components/Chat/Chat";
 import Loader from "./components/Loader/Loader";
 
 function App() {
+  // State to manage user authentication status and information
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
   const [isAuthChecked, setIsAuthChecked] = useState(false);
 
+  // Check authentication status on component mount
   useEffect(() => {
     const token = localStorage.getItem("token");
     const name = localStorage.getItem("userName");
@@ -23,21 +25,22 @@ function App() {
     setIsAuthChecked(true);
   }, []);
 
+  // Handle user login
   const handleLogin = (name) => {
     setUserName(name);
     setIsLoggedIn(true);
-
     localStorage.setItem("userName", name);
   };
 
+  // Handle user logout
   const handleLogout = () => {
     setUserName("");
     setIsLoggedIn(false);
-
     localStorage.removeItem("token");
     localStorage.removeItem("userName");
   };
 
+  // Render loading spinner until authentication status is checked
   if (!isAuthChecked) {
     return (
       <div>
@@ -46,18 +49,22 @@ function App() {
     );
   }
 
+  // Render application content once authentication is checked
   return (
     <BrowserRouter>
+      {/* Application header component */}
       <Header
         isLoggedIn={isLoggedIn}
         userName={userName}
         handleLogout={handleLogout}
       />
+      {/* Define application routes */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn handleLogin={handleLogin} />} />
 
+        {/* Protected route for chat - redirects to signin if not logged in */}
         <Route
           path="/chat"
           element={
@@ -72,6 +79,7 @@ function App() {
   );
 }
 
+// Component for protected routes - redirects to signin if not logged in
 const ProtectedRoute = ({ isLoggedIn, component }) => {
   return isLoggedIn ? component : <Navigate to="/signin" />;
 };

@@ -5,16 +5,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus, faComment } from "@fortawesome/free-solid-svg-icons";
 
 function Rooms({ onSelectRoom }) {
+  // State management
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [newRoomName, setNewRoomName] = useState("");
   const [activeRoomId, setActiveRoomId] = useState(null);
 
+  // Fetch rooms from backend on component mount
   useEffect(() => {
     fetchRooms();
   }, []);
 
+  // Function to fetch rooms from backend
   const fetchRooms = async () => {
     setLoading(true);
     setError(null);
@@ -34,11 +37,13 @@ function Rooms({ onSelectRoom }) {
     }
   };
 
+  // Handle click on a room to select it
   const handleRoomClick = (room) => {
     setActiveRoomId(room._id);
     onSelectRoom(room);
   };
 
+  // Handle creation of a new room
   const handleCreateRoom = async () => {
     if (!newRoomName.trim()) {
       alert("Please enter a room name");
@@ -66,6 +71,7 @@ function Rooms({ onSelectRoom }) {
     }
   };
 
+  // Handle deletion of a room
   const handleDeleteRoom = async (roomId) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this room?"
@@ -91,14 +97,17 @@ function Rooms({ onSelectRoom }) {
     }
   };
 
+  // Display loading spinner while loading
   if (loading) {
     return <div className={styles.loader}>Loading...</div>;
   }
 
+  // Display error message if there's an error
   if (error) {
     return <div className={styles.error}>{error}</div>;
   }
 
+  // Render room list and create new room input
   return (
     <div className={styles.roomsContainer}>
       <h2 className={styles.heading}>

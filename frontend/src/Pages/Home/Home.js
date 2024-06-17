@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Home.module.css";
 
+//Home component to display home page
 function Home() {
   return (
     <div className={styles.container}>
@@ -13,6 +14,7 @@ function Home() {
           Join ChatterUp and start conversations with friends and new
           acquaintances around the globe.
         </p>
+
         <Link to="/chat" className={styles.startButton}>
           Jump In{" "}
           <FontAwesomeIcon icon={faPaperPlane} className={styles.messageIcon} />

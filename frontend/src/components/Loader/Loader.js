@@ -1,5 +1,6 @@
 import React from "react";
 
+//Loader component
 export default function Loader() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" height="50">
