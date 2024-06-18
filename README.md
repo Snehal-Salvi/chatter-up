@@ -4,15 +4,11 @@ Chatter Up is a real-time chat application that allows users to join rooms and c
 
 ## Deployment Link:
 
-[Chatter Up]()
+[Chatter Up](https://chatter-up-frontend.onrender.com)
 
 ## Application Demo
 
-
-
 https://github.com/Snehal-Salvi/chatter-up/assets/125987932/094d84a6-a7e9-4b38-87ad-6b17b15871b2
-
-
 
 ## Backend Documentation
 
